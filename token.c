@@ -72,3 +72,29 @@ void token_print(token_t *token)
 		printf("%s)\n", token->value);
 	}
 }
+
+token_queue_t *tqueue_create()
+{
+	token_queue_t *q = (token_queue_t*)calloc(1, sizeof(token_queue_t));
+	q->capacity = 1;
+	q->items = (token_t*)calloc(q->capacity, sizeof(token_t));
+	q->count = 0;
+	return q;
+}
+
+void tqueue_free(token_queue_t *tq)
+{
+	free(tq->items);
+	tq->items = NULL;
+	tq->count = 0;
+	tq->capacity = 0;
+	tq = NULL;
+}
+
+void tqueue_push(const token_t *item)
+{
+}
+
+token_t *tqueue_pop(token_queue_t *tq)
+{
+}
