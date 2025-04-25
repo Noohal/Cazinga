@@ -1,0 +1,11 @@
+var x = 0
+var y = 1
+
+var sum = x + y
+var dif = x - y
+var pro = x * y
+var div = x / y
+var squ = x ** y
+
+print(sum + dif + pro + div + squ)
+print("This is a string test")

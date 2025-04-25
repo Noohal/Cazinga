@@ -18,11 +18,11 @@ void token_free(token_t *token)
 	token = NULL;
 }
 
-void token_print(token_t *token)
+void token_print(token_t token)
 {
 	printf("TOKEN(");
 
-	switch(token->type)
+	switch(token.type)
 	{
 		case TOKEN_NUMBER:
 		printf("NUMBER, ");
@@ -59,42 +59,17 @@ void token_print(token_t *token)
 			break;
 	}
 	
-	if (token->type == TOKEN_STRING)
+	if (token.type == TOKEN_STRING)
 	{
-		printf("\'%s\')\n", token->value);
+		printf("\'%s\')\n", token.value);
 	}
-	else if (token->type == TOKEN_INVALID)
+	else if (token.type == TOKEN_INVALID)
 	{
-		printf("%d)\n", (int)*token->value);
+		printf("%d)\n", (int)*token.value);
 	}
 	else 
 	{
-		printf("%s)\n", token->value);
+		printf("%s)\n", token.value);
 	}
 }
 
-token_queue_t *tqueue_create()
-{
-	token_queue_t *q = (token_queue_t*)calloc(1, sizeof(token_queue_t));
-	q->capacity = 1;
-	q->items = (token_t*)calloc(q->capacity, sizeof(token_t));
-	q->count = 0;
-	return q;
-}
-
-void tqueue_free(token_queue_t *tq)
-{
-	free(tq->items);
-	tq->items = NULL;
-	tq->count = 0;
-	tq->capacity = 0;
-	tq = NULL;
-}
-
-void tqueue_push(const token_t *item)
-{
-}
-
-token_t *tqueue_pop(token_queue_t *tq)
-{
-}
