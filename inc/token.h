@@ -8,6 +8,9 @@ typedef enum TokenType
 	TOKEN_INVALID = 0,
 	TOKEN_SYMBOL,
 	TOKEN_STRING,
+	TOKEN_LPAREN,
+	TOKEN_RPAREN,
+	TOKEN_EQUALS,
 	TOKEN_NUM
 } TokenType;
 

@@ -55,12 +55,7 @@ Token *lexer_get_next_token(Lexer *lex)
 	while (lex->current != '\0' && lex->idx < lex->size)
 	{
 		lexer_skip_whitespace(lex);
-
-		if (lex->current == '\"')
-		{
-			return lexer_get_next_with_string(lex);
-		}
-
+		
 		if (isalnum(lex->current))
 		{
 			if (isdigit(lex->current))
@@ -71,6 +66,24 @@ Token *lexer_get_next_token(Lexer *lex)
 			{
 				return lexer_get_next_with_symbol(lex);
 			}
+		}
+
+		switch(lex->current)
+		{
+			case '\"':
+				return lexer_get_next_with_string(lex);
+			case '(':
+				return lexer_get_next_with_token(lex, TOKEN_LPAREN);
+			case ')':
+				return lexer_get_next_with_token(lex, TOKEN_RPAREN);
+			case '=':
+				return lexer_get_next_with_token(lex, TOKEN_EQUALS);
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			default:
+				return lexer_get_next_with_token(lex, TOKEN_INVALID);
 		}
 		lexer_next(lex);	
 	}
@@ -94,7 +107,7 @@ Token *lexer_get_next_with_number(Lexer *lex)
 Token *lexer_get_next_with_symbol(Lexer *lex)
 {
 	string *sym = str_create_empty();
-	while (lexer_is_whitespace(lex))
+	while (lexer_is_whitespace(lex) && isalnum(lex->current))
 	{
 		str_append(sym, lex->current);
 		lexer_next(lex);
@@ -119,3 +132,10 @@ Token *lexer_get_next_with_string(Lexer *lex)
 	return token_new_from_string(TOKEN_STRING, str);
 }
 
+Token *lexer_get_next_with_token(Lexer *lex, TokenType type)
+{
+	string *val = str_create_empty();
+	str_append(val, lex->current);
+	lexer_next(lex);
+	return token_new_from_string(type, val);
+}

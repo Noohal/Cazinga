@@ -21,5 +21,6 @@ Token *lexer_get_next_token(Lexer *lex);
 Token *lexer_get_next_with_number(Lexer *lex);
 Token *lexer_get_next_with_symbol(Lexer *lex);
 Token *lexer_get_next_with_string(Lexer *lex);
+Token *lexer_get_next_with_token(Lexer *lex, TokenType type);
 
 #endif // __LEXER_H
