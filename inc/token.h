@@ -7,6 +7,7 @@ typedef enum TokenType
 {
 	TOKEN_INVALID = 0,
 	TOKEN_SYMBOL,
+	TOKEN_STRING,
 	TOKEN_NUM
 } TokenType;
 

@@ -56,6 +56,11 @@ Token *lexer_get_next_token(Lexer *lex)
 	{
 		lexer_skip_whitespace(lex);
 
+		if (lex->current == '\"')
+		{
+			return lexer_get_next_with_string(lex);
+		}
+
 		if (isalnum(lex->current))
 		{
 			if (isdigit(lex->current))
@@ -100,3 +105,19 @@ Token *lexer_get_next_with_symbol(Lexer *lex)
 	lexer_next(lex);
 	return token_new_from_string(TOKEN_SYMBOL, sym);
 }
+
+Token *lexer_get_next_with_string(Lexer *lex)
+{
+	string *str = str_create_empty();
+	lexer_next(lex);
+	while (lex->current != '\"')
+	{
+		str_append(str, lex->current);
+		lexer_next(lex);
+	}
+	str_append(str, '\0');
+	lexer_next(lex);
+
+	return token_new_from_string(TOKEN_STRING, str);
+}
+
