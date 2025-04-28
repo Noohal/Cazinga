@@ -1,0 +1,24 @@
+#ifndef __LEXER_H
+#define __LEXER_H
+
+#include "token.h"
+
+typedef struct
+{
+	const char *contents;
+	char current;
+	int size;
+	int idx;
+} Lexer;
+
+void lexer_set_size(Lexer *lex);
+
+void lexer_lex(Lexer *lex);
+
+void lexer_next(Lexer *lex);
+Token *lexer_get_next_token(Lexer *lex);
+
+Token *lexer_get_next_with_number(Lexer *lex);
+void lexer_skip_whitespace(Lexer *lex);
+
+#endif // __LEXER_H

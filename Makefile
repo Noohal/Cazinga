@@ -1,5 +1,8 @@
 
-all: clean compile
+all: clean compile run
+
+run:
+	./caz
 
 compile:
 	gcc -Wall -Wpedantic -Iinc -o caz $(wildcard src/*.c)
