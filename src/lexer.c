@@ -88,7 +88,6 @@ Token *lexer_get_next_with_number(Lexer *lex)
 	}
 	str_append(num, '\0');
 	
-	lexer_next(lex);
 	return token_new_from_string(TOKEN_NUM, num);
 }
 
@@ -102,7 +101,6 @@ Token *lexer_get_next_with_symbol(Lexer *lex)
 	}
 	str_append(sym, '\0');
 	
-	lexer_next(lex);
 	return token_new_from_string(TOKEN_SYMBOL, sym);
 }
 
