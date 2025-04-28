@@ -6,7 +6,7 @@
 typedef struct
 {
 	const char *contents;
-	char current;
+	unsigned char current;
 	int size;
 	int idx;
 } Lexer;

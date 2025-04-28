@@ -5,7 +5,7 @@ run:
 	./caz
 
 compile:
-	gcc -Wall -Wpedantic -Iinc -o caz $(wildcard src/*.c)
+	gcc -O0 -g3 -Wall -Wpedantic -Iinc -o caz $(wildcard src/*.c)
 
 clean:
 	rm caz
