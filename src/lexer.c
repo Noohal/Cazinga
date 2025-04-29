@@ -25,15 +25,16 @@ void lexer_lex(Lexer *lex)
 	while (lex->current != '\0')
 	{
 		token = lexer_get_next_token(lex);
-
-		if (token)
-		{
-			printf("TOKEN(%d, %s)\n", token->type, token->value->raw);
-		}
-
+		queue->push(queue, token);
 		token_free(token);
 	}
 
+	printf("Size of Queue: %d", queue->count);
+	
+	while ((token = queue->pop(queue)) != NULL)
+	{
+		printf("TOKEN %d %s\n", token->type, token->value->raw);
+	}
 	token_queue_free(queue);
 }
 
@@ -79,9 +80,13 @@ Token *lexer_get_next_token(Lexer *lex)
 			case '=':
 				return lexer_get_next_with_token(lex, TOKEN_EQUALS);
 			case '+':
-			case '-':
-			case '*':
+				return lexer_get_next_with_token(lex, TOKEN_PLUS);
+			case '-':				
+				return lexer_get_next_with_token(lex, TOKEN_MINUS);
+			case '*':				
+				return lexer_get_next_with_token(lex, TOKEN_MULTIPLY);
 			case '/':
+				return lexer_get_next_with_token(lex, TOKEN_DIVIDE);
 			default:
 				return lexer_get_next_with_token(lex, TOKEN_INVALID);
 		}
